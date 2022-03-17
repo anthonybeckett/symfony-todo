@@ -1,11 +1,19 @@
-import { startStimulusApp } from '@symfony/stimulus-bridge';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TodoContextProvider from "./js/contexts/TodoContext";
+import TodoTable from "./js/components/TodoTable";
+import {CssBaseline} from "@mui/material";
+import AppSnackbar from "./js/components/AppSnackbar";
 
-// Registers Stimulus controllers from controllers.json and in the controllers/ directory
-export const app = startStimulusApp(require.context(
-    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
-    true,
-    /\.[jt]sx?$/
-));
+function App(props) {
+    return (
+        <TodoContextProvider>
+            <CssBaseline>
+                <TodoTable/>
+                <AppSnackbar/>
+            </CssBaseline>
+        </TodoContextProvider>
+    );
+}
 
-// register any custom, 3rd party controllers here
-// app.register('some_controller_name', SomeImportedController);
+ReactDOM.render(<App/>, document.querySelector('#root'));
